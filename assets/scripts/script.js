@@ -6,8 +6,7 @@
 // OMDb api call example:
 // http://www.omdbapi.com/?apikey=20106460&t=the+princess+bride
 
-const TMDB_SEARCH_URL =
-  "https://api.themoviedb.org/3/search/movie?api_key=f83bba844914e64ae1cd385b42ce04e0&query=";
+const TMDB_SEARCH_URL = "https://api.themoviedb.org/3/search/movie?api_key=f83bba844914e64ae1cd385b42ce04e0&query=";
 const TMDB_REC_URL = "https://api.themoviedb.org/3/movie/";
 const OMDB_URL = "http://www.omdbapi.com/?apikey=20106460&t=";
 
@@ -15,9 +14,12 @@ const OMDB_URL = "http://www.omdbapi.com/?apikey=20106460&t=";
 var searchMovie = {};
 var relatedMovies = [];
 
-userInput = "The Princess Bride";
+$("#search-button").on("click", function()
+{
+    relatedMovies = [];
+    TmdbSearchByName($("#user-input").val());
+});
 
-TmdbSearchByName(userInput);
 
 function TmdbSearchByName(searchTerm) {
   $.ajax({
@@ -44,14 +46,23 @@ function TmdbRelated(movieID) {
     for (var i = 0; i < 2; i++) {
       OmdbSearch(tmdbRec.results[i].title);
     }
+  }).then(function()
+  {
+      console.log("Last thing");
   });
 }
 
 function OmdbSearch(movieTitle) {
+    
   $.ajax({
     url: OMDB_URL + encodeURI(movieTitle),
   }).then(function (omdbSearch) {
     console.log(omdbSearch);
+    var related = {};
+    related.title = omdbSearch.Title;
+    relatedMovies.push(related);
+    console.log(relatedMovies);
+    // Redraw display
   });
 }
 
