@@ -7,9 +7,9 @@
 // http://www.omdbapi.com/?apikey=20106460&t=the+princess+bride
 
 
-var tmdbSearchURL =  "https://api.themoviedb.org/3/search/movie?api_key=f83bba844914e64ae1cd385b42ce04e0&query=";
-var tmdbRecURL = "https://api.themoviedb.org/3/movie/";
-var omdbURL = "http://www.omdbapi.com/?apikey=20106460&t=";
+const TMDB_SEARCH_URL =  "https://api.themoviedb.org/3/search/movie?api_key=f83bba844914e64ae1cd385b42ce04e0&query=";
+const TMDB_REC_URL = "https://api.themoviedb.org/3/movie/";
+const OMDB_URL = "http://www.omdbapi.com/?apikey=20106460&t=";
 
 // ============= Movie Objects ==========
 var searchMovie = {};
@@ -20,20 +20,20 @@ userInput = "The Princess Bride";
 TmdbSearchByName(userInput);
 
 // $.ajax({
-//   url: tmdbSearchURL + encodeURI(userInput)
+//   url: TMDB_SEARCH_URL + encodeURI(userInput)
 // }).then(function(tmdbSearch) {
 //     searchMovie.title = tmdbSearch.results[0].title;
 //     console.log(tmdbSearch);
 //     var movieID = tmdbSearch.results[0].id;
 //     $.ajax({
-//         url: tmdbRecURL + movieID + "/recommendations?api_key=f83bba844914e64ae1cd385b42ce04e0&language=en-US&page=1"
+//         url: TMDB_REC_URL + movieID + "/recommendations?api_key=f83bba844914e64ae1cd385b42ce04e0&language=en-US&page=1"
 //     }).then(function(tmdbRec) {
 //         console.log(tmdbRec.results);
 //         // get movie name
 //         for (var i = 0; i < 2; i++) {
 //             var currentResult = encodeURI(tmdbRec.results[i].title)
 //             $.ajax({
-//                 url: omdbURL + currentResult
+//                 url: OMDB_URL + currentResult
 //             }).then(function(omdbSearch) {
 //                 console.log(omdbSearch);
 //             });
@@ -45,7 +45,7 @@ TmdbSearchByName(userInput);
 function TmdbSearchByName(searchTerm)
 {
     $.ajax({
-        url: tmdbSearchURL + encodeURI(searchTerm)
+        url: TMDB_SEARCH_URL + encodeURI(searchTerm)
       }).then(function(tmdbSearch) {
           var movie = tmdbSearch.results[0];
           searchMovie.title = movie.title;
@@ -59,7 +59,7 @@ function TmdbSearchByName(searchTerm)
 function TmdbRelated(movieID)
 {
     $.ajax({
-        url: tmdbRecURL + movieID + "/recommendations?api_key=f83bba844914e64ae1cd385b42ce04e0&language=en-US&page=1"
+        url: TMDB_REC_URL + movieID + "/recommendations?api_key=f83bba844914e64ae1cd385b42ce04e0&language=en-US&page=1"
     }).then(function(tmdbRec) {
         console.log(tmdbRec.results);
         // get movie name
@@ -72,7 +72,7 @@ function TmdbRelated(movieID)
 function OmdbSearch(movieTitle)
 {
     $.ajax({
-        url: omdbURL + encodeURI(movieTitle)
+        url: OMDB_URL + encodeURI(movieTitle)
     }).then(function(omdbSearch) {
         console.log(omdbSearch);
     });
