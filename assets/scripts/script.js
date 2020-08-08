@@ -6,8 +6,8 @@
 // OMDb api call example:
 // http://www.omdbapi.com/?apikey=20106460&t=the+princess+bride
 
-
-const TMDB_SEARCH_URL =  "https://api.themoviedb.org/3/search/movie?api_key=f83bba844914e64ae1cd385b42ce04e0&query=";
+const TMDB_SEARCH_URL =
+  "https://api.themoviedb.org/3/search/movie?api_key=f83bba844914e64ae1cd385b42ce04e0&query=";
 const TMDB_REC_URL = "https://api.themoviedb.org/3/movie/";
 const OMDB_URL = "http://www.omdbapi.com/?apikey=20106460&t=";
 
@@ -19,66 +19,42 @@ userInput = "The Princess Bride";
 
 TmdbSearchByName(userInput);
 
-// $.ajax({
-//   url: TMDB_SEARCH_URL + encodeURI(userInput)
-// }).then(function(tmdbSearch) {
-//     searchMovie.title = tmdbSearch.results[0].title;
-//     console.log(tmdbSearch);
-//     var movieID = tmdbSearch.results[0].id;
-//     $.ajax({
-//         url: TMDB_REC_URL + movieID + "/recommendations?api_key=f83bba844914e64ae1cd385b42ce04e0&language=en-US&page=1"
-//     }).then(function(tmdbRec) {
-//         console.log(tmdbRec.results);
-//         // get movie name
-//         for (var i = 0; i < 2; i++) {
-//             var currentResult = encodeURI(tmdbRec.results[i].title)
-//             $.ajax({
-//                 url: OMDB_URL + currentResult
-//             }).then(function(omdbSearch) {
-//                 console.log(omdbSearch);
-//             });
-//         }
-//         DisplaySearch();
-//     });
-// });
-
-function TmdbSearchByName(searchTerm)
-{
-    $.ajax({
-        url: TMDB_SEARCH_URL + encodeURI(searchTerm)
-      }).then(function(tmdbSearch) {
-          var movie = tmdbSearch.results[0];
-          searchMovie.title = movie.title;
-          searchMovie.id = movie.id;
-          searchMovie.desc = movie.overview;
-          console.log(tmdbSearch);
-          TmdbRelated(movie.id);
-      });
+function TmdbSearchByName(searchTerm) {
+  $.ajax({
+    url: TMDB_SEARCH_URL + encodeURI(searchTerm),
+  }).then(function (tmdbSearch) {
+    var movie = tmdbSearch.results[0];
+    searchMovie.title = movie.title;
+    searchMovie.id = movie.id;
+    searchMovie.desc = movie.overview;
+    console.log(tmdbSearch);
+    TmdbRelated(movie.id);
+  });
 }
 
-function TmdbRelated(movieID)
-{
-    $.ajax({
-        url: TMDB_REC_URL + movieID + "/recommendations?api_key=f83bba844914e64ae1cd385b42ce04e0&language=en-US&page=1"
-    }).then(function(tmdbRec) {
-        console.log(tmdbRec.results);
-        // get movie name
-        for (var i = 0; i < 2; i++) {
-            OmdbSearch(tmdbRec.results[i].title);
-        }
-    });
+function TmdbRelated(movieID) {
+  $.ajax({
+    url:
+      TMDB_REC_URL +
+      movieID +
+      "/recommendations?api_key=f83bba844914e64ae1cd385b42ce04e0&language=en-US&page=1",
+  }).then(function (tmdbRec) {
+    console.log(tmdbRec.results);
+    // get movie name
+    for (var i = 0; i < 2; i++) {
+      OmdbSearch(tmdbRec.results[i].title);
+    }
+  });
 }
 
-function OmdbSearch(movieTitle)
-{
-    $.ajax({
-        url: OMDB_URL + encodeURI(movieTitle)
-    }).then(function(omdbSearch) {
-        console.log(omdbSearch);
-    });
+function OmdbSearch(movieTitle) {
+  $.ajax({
+    url: OMDB_URL + encodeURI(movieTitle),
+  }).then(function (omdbSearch) {
+    console.log(omdbSearch);
+  });
 }
 
-function DisplaySearch()
-{
-    div = searchMovie.title;
+function DisplaySearch() {
+  div = searchMovie.title;
 }
