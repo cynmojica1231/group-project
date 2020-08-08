@@ -15,7 +15,6 @@ body {
 }
 
 .card {
-    border: 2px solid black;
     text-align: center;
     padding: 24px;
     font-size: 40px;
@@ -33,4 +32,8 @@ body {
 
 .movie-abstract {
     font-size: 16px;
+}
+
+.movie-recommendation {
+    display: inline-block;
 }
