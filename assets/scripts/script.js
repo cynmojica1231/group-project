@@ -11,10 +11,10 @@ var tmdbSearchURL =  "https://api.themoviedb.org/3/search/movie?api_key=f83bba84
 var tmdbRecURL = "https://api.themoviedb.org/3/movie/";
 var omdbURL = "http://www.omdbapi.com/?apikey=20106460&t=";
 
-userInput = "fight+club";
+userInput = "The Princess Bride";
 
 $.ajax({
-  url: tmdbSearchURL + userInput
+  url: tmdbSearchURL + encodeURI(userInput)
 }).then(function(tmdbSearch) {
     var movieID = tmdbSearch.results[0].id;
     $.ajax({
@@ -23,7 +23,7 @@ $.ajax({
         console.log(tmdbRec.results);
         // get movie name
         for (var i = 0; i < 2; i++) {
-            var currentResult = tmdbRec.results[i].title
+            var currentResult = encodeURI(tmdbRec.results[i].title)
             $.ajax({
                 url: omdbURL + currentResult
             }).then(function(omdbSearch) {
