@@ -1,25 +1,25 @@
-// TasteDive api call example:
-// https://tastedive.com/api/similar?k=381371-Similar-W5E25EP7&q=pulp+fiction
+// TMDb api call search:
+// https://api.themoviedb.org/3/search/movie?api_key={api_key}&query=Jack+Reacher
+// TMDb api call recommendations
+// https://api.themoviedb.org/3/movie/75780/recommendations?api_key=f83bba844914e64ae1cd385b42ce04e0&language=en-US&page=1
 
 // OMDb api call example:
 // http://www.omdbapi.com/?apikey=20106460&t=the+princess+bride
 
-var tasteURL =  "https://cors-anywhere.herokuapp.com/https://tastedive.com/api/similar?k=381371-Similar-W5E25EP7&q=";
 
-var movieName = "";
+var tmdbSearchURL =  "https://api.themoviedb.org/3/search/movie?api_key=f83bba844914e64ae1cd385b42ce04e0&query=";
+var tmdbRecURL = "https://api.themoviedb.org/3/movie/";
+var omdbURL = "http://www.omdbapi.com/?apikey=20106460&t=";
 
-movieName = "pulp+fiction";
-
-// lowecase all letters
-// replaced spaces with plus
-
-tasteURL += movieName; 
+userInput = "fight+club";
 
 $.ajax({
-    url: tasteURL
-}).then(function(response) {
-    console.log(response.Similar.Info[0]);
-    for (var i = 0; i < 5; i++) {
-        console.log(response.Similar.Results[i]);
-    }
+  url: tmdbSearchURL + userInput
+}).then(function(tmdbSearch) {
+    var movieID = tmdbSearch.results[0].id;
+    $.ajax({
+        url: tmdbRecURL + movieID + "/recommendations?api_key=f83bba844914e64ae1cd385b42ce04e0&language=en-US&page=1"
+    }).then(function(tmdbRec) {
+        console.log(tmdbRec.results);
+    });
 });
