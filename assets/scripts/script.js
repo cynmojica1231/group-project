@@ -21,5 +21,14 @@ $.ajax({
         url: tmdbRecURL + movieID + "/recommendations?api_key=f83bba844914e64ae1cd385b42ce04e0&language=en-US&page=1"
     }).then(function(tmdbRec) {
         console.log(tmdbRec.results);
+        // get movie name
+        for (var i = 0; i < 2; i++) {
+            var currentResult = tmdbRec.results[i].title
+            $.ajax({
+                url: omdbURL + currentResult
+            }).then(function(omdbSearch) {
+                console.log(omdbSearch);
+            });
+        }
     });
 });
