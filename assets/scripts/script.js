@@ -2,7 +2,8 @@
 // https://api.themoviedb.org/3/search/movie?api_key={api_key}&query=Jack+Reacher
 // TMDb api call recommendations
 // https://api.themoviedb.org/3/movie/75780/recommendations?api_key=f83bba844914e64ae1cd385b42ce04e0&language=en-US&page=1
-
+// TMDb api call for specific movie by ID
+// https://api.themoviedb.org/3/movie/{movie_id}?api_key=<<api_key>>&language=en-US
 // OMDb api call example:
 // http://www.omdbapi.com/?apikey=20106460&t=the+princess+bride
 
@@ -35,7 +36,7 @@ $("#search-button").on("click", function(event)
 
 // Function to  search TMDB by name, and type
 function TmdbSearchByName(searchTerm, searchType) {
-console.log(TMDB_SEARCH_URL);
+console.log(TMDB_SEARCH_URL + searchType + "?api_key=" + TMDB_API_KEY + "&query=" + encodeURI(searchTerm));
   $.ajax({
     url: TMDB_SEARCH_URL + searchType + "?api_key=" + TMDB_API_KEY + "&query=" + encodeURI(searchTerm),
   }).then(function (tmdbSearch) {
