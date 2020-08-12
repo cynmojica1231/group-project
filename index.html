@@ -3,74 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Group Project</title>
+    <title>Super Similar</title>
 
-    <!-- Note: Not allowed to use Bootstrap -->
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <!-- Foundation CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css" integrity="sha256-ogmFxjqiTMnZhxCqVmcqTvjfe1Y/ec4WaRj/aQPvn+I=" crossorigin="anonymous">
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="assets/styles/style.css">
 
     <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
 </head>
 <body>
-    <!-- Current styling is temporary -- We need a css framework other than bootstrap for the final project -->
 
+    <div class="wrapper">
+        <div class="hero">
 
-    <header id="title">
-        Similar/Related
-    </header>
-    
-    <div class="card">
-
-        <form id="card">
-            <label for="name">Name of Movie</label>
-            <input type="text" id="user-input" width="400">
-            <button type="button" id="search-button">Search</button>
-        </form>
-        
-    </div>
-
-    <div class="card">
-        <div class="movie-title">
-            The Princess Bride
-        </div>
-        <div class="movie-pic">
-            <img height="400" width="300" src="https://cdn1.thr.com/sites/default/files/imagecache/portrait_300x450/2013/11/princess_bride_poster_art_a_p.jpg">
-        </div>
-        <div class="movie-abstract">
-            This is the best movie ever made.
-        </div>
-    </div>
-
-    <h1 style="text-align: center">
-        Recommendations:
-    </h1>
-
-    <div class="card">
-        <div class="movie-recommendation">
-            <div class="movie-title">
-                Groundhog Day
-            </div>
-            <div class="movie-pic">
-                <img height="400" width="300" src="https://images.qloo.com/i/55B931A0-4E15-4FD4-BD66-F5E04AD99E27-210x210-outside.jpg?webUrl=https%3A//upload.wikimedia.org/wikipedia/en/thumb/b/b1/Groundhog_Day_%2528movie_poster%2529.jpg/136px-Groundhog_Day_%2528movie_poster%2529.jpg">
-            </div>
-            <div class="movie-abstract">
-                This is a pretty good movie.
-            </div>
-        </div>
-
-        <div class="movie-recommendation">
-            <div class="movie-title">
-                The Wizard Of Oz
-            </div>
-            <div class="movie-pic">
-                <img height="400" width="300" src="https://images.qloo.com/i/1DD9A9A2-3AB2-4EF4-8DCC-67CAC585813D-210x210-outside.jpg?webUrl=https%3A//upload.wikimedia.org/wikipedia/commons/thumb/c/ca/WIZARD_OF_OZ_ORIGINAL_POSTER_1939.jpg/132px-WIZARD_OF_OZ_ORIGINAL_POSTER_1939.jpg">
-            </div>
-            <div class="movie-abstract">
-                This is an OK movie.
-            </div>
+            
+            <header class="grid-container">
+                <div class="grid-x">
+                    <h1 class="cell" id="title">
+                        Super Similar
+                    </h1>
+                </div>
+            </header>
+            
+            <main class="grid-container">
+                <form class="grid-x grid-margin-x" id="input-grid">
+                    <!-- Movie/Series and Title -->
+                    <select id="user-type" class="cell medium-2 medium-offset-3 form-input">
+                        <option>Movie</option>
+                        <option>Series</option>
+                    </select>
+                    <div class="cell medium-4">
+                        <input id="user-input" class="form-input" type="text" size="">
+                    </div>
+                    <!-- Search button -->
+                    <div class="cell small-12 medium-offset-3">
+                        <div class="grid-x grid-margin-x">
+                            <button type="submit" class="button primary cell small-6 medium-2" id="search-button">
+                                Search
+                            </button>
+                            <button type="submit" class="button alert cell small-6 medium-4" id="lucky-button">
+                                I'm Feeling Trustworthy
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </main>
         </div>
     </div>
-
     <script type="text/javascript" src="assets/scripts/script.js"></script>
 </body>
 </html>

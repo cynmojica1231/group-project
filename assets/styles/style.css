@@ -1,39 +1,35 @@
 @import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
 
 body {
-    background-color: #A0EADE;
+    background-image: url("https://i.redd.it/4fxxbm4opjd31.jpg");
+    background-size: 100rem;
 }
 
 #title {
     text-align: center;
-    background-color: #4CB963;
-    font-size: 80px;
     font-family: Lobster;
-    padding-top: 8px;
-    padding-bottom: 8px;
-    border: 2px solid black;
+    margin-bottom: 1.5rem;
 }
 
-.card {
-    text-align: center;
-    padding: 24px;
-    font-size: 40px;
+.wrapper {
+    margin-top: 20rem;
 }
 
-#user-input {
-    height: 40px;
-    font-size: 40px;
+.button {
+    border-radius: 0.5rem;
 }
 
-#search-button {
-    height: 46px;
-    padding-top: 20px;
+.hero {
+    background-color: rgb(255,255,255,.8)
 }
 
-.movie-abstract {
-    font-size: 16px;
-}
+@media screen and (max-width: 39.9375em) {
+    #input-grid {
+        margin-left: 5rem;
+        margin-right: 5rem;
+    }
 
-.movie-recommendation {
-    display: inline-block;
+    .button {
+        font-size: 0.5rem;
+    }
 }
