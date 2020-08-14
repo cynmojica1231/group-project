@@ -32,11 +32,8 @@ body {
 
 #sidekick {
     margin-top: 3rem;
-<<<<<<< HEAD
-=======
     display: none;
     transition: 1s all ease;
->>>>>>> 47f4d9b64d03c6bef54d0c868dd01a3fb7b2c339
 }
 
 summary {
