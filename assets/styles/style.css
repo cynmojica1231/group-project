@@ -2,7 +2,7 @@
 
 body {
     background-image: url("https://i.redd.it/4fxxbm4opjd31.jpg");
-    background-size: 100rem;
+    background-size: cover;
 }
 
 #title {
@@ -31,5 +31,9 @@ body {
 
     .button {
         font-size: 0.5rem;
+    }
+    
+    .wrapper {
+        margin-top: 10rem;
     }
 }
