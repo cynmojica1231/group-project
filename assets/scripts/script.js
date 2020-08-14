@@ -17,7 +17,7 @@ const TRUST_ARRAY = [];
 const TMDB_API_KEY = "f83bba844914e64ae1cd385b42ce04e0";
 const TMDB_SEARCH_URL = "https://api.themoviedb.org/3/search/";
 const TMDB_REC_URL = "https://api.themoviedb.org/3/";
-const OMDB_URL = "http://www.omdbapi.com/?apikey=20106460&t=";
+const OMDB_URL = "https://www.omdbapi.com/?apikey=20106460&t=";
 const NUM_OF_RECOMENDATIONS = 4;
 
 const WRAPPER_ELEM = $("#wrapper");
