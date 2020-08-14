@@ -54,6 +54,10 @@ img {
     font-family: Bangers;
 }
 
+#current-movie, #rec-movies {
+    text-align: center;
+}
+
 @media screen and (max-width: 39.9375em) {
     #input-grid {
         margin-left: 5rem;
