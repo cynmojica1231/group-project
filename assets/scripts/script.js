@@ -14,7 +14,7 @@ const TMDB_API_KEY = "f83bba844914e64ae1cd385b42ce04e0";
 const TMDB_SEARCH_URL = "https://api.themoviedb.org/3/search/";
 const TMDB_REC_URL = "https://api.themoviedb.org/3/";
 const OMDB_URL = "http://www.omdbapi.com/?apikey=20106460&t=";
-const NUM_OF_RECOMENDATIONS = 5;
+const NUM_OF_RECOMENDATIONS = 2;
 
 // ============ End Const Section ==============
 
@@ -26,11 +26,13 @@ var relatedMovies = [];
 // ========= End Variables Section ==========
 
 // **Note** Remove defult on enter press
-$("#search-button").on("click", function(event)
+$("#input-grid").on("submit", function(event)
 {
+  event.preventDefault();
+  console.log($("#user-type").val());
   relatedMovies = [];
   // **note** Replace movie with value of dropdown
-  TmdbSearchByName($("#user-input").val(), "movie");
+  TmdbSearchByName($("#user-input").val(), $("#user-type").val().toLowerCase());
 });
 
 // Function to  search TMDB by name, and type
@@ -42,47 +44,53 @@ console.log(TMDB_SEARCH_URL);
     searchMovie = tmdbSearch.results[0];
     console.log(tmdbSearch);
     TmdbRelated(searchMovie.id, searchType);
+  }).then(async function()
+  {
+    searchMovie = await OmdbSearch(searchTerm,searchType);
+    console.log("Second Then!");
+    console.log(searchMovie);
   });
+  
 }
 
 // Function To Search TMDB for related content based on id
 function TmdbRelated(videoID, searchType) {
   $.ajax({
     url: TMDB_REC_URL + searchType +"/" + videoID + "/recommendations?api_key=" + TMDB_API_KEY + "&language=en-US&page=1",
-  }).then(function (tmdbRec) {
-    console.log(tmdbRec.results);
+  }).then(async function (tmdbRec) {
     // get movie name
     for (var i = 0; i < NUM_OF_RECOMENDATIONS; i++) {
       if(searchType == "movie")
       {
-        OmdbSearch(tmdbRec.results[i].title, searchType);
+        relatedMovies[i] = await OmdbSearch(tmdbRec.results[i].title, searchType);
       }
       else
       {
-        OmdbSearch(tmdbRec.results[i].name, searchType);
+        relatedMovies[i] = await OmdbSearch(tmdbRec.results[i].name, searchType);
       }
-    }
+    } 
+    console.log(relatedMovies);
   });
 }
 
 // Function that gathers information from OMDB, and saves that information in related movies array
-function OmdbSearch(videoTitle, searchType) {
+async function OmdbSearch(videoTitle, searchType) {
+  var related;
   if(searchType == "tv")
   {
     searchType = "series";
   }
 
-  $.ajax({
+  await $.ajax({
     url: OMDB_URL + encodeURI(videoTitle) + "&type=" + searchType,
   }).then(function (omdbSearch) {
     console.log(omdbSearch);
-    var related = omdbSearch;
-    relatedMovies.push(related);
-    console.log(relatedMovies);
-    // Redraw display
+    related = omdbSearch;
   });
+
+  return related;
 }
 
 function DisplaySearch() {
-  div = searchMovie.title;
+
 }
