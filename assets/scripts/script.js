@@ -16,6 +16,11 @@ const TMDB_REC_URL = "https://api.themoviedb.org/3/";
 const OMDB_URL = "http://www.omdbapi.com/?apikey=20106460&t=";
 const NUM_OF_RECOMENDATIONS = 2;
 
+const WRAPPER_ELEM = $("#wrapper");
+const SIDEKICK_ELEM = $("#sidekick");
+const SEARCH_MOVIE_ELEM = $("#current-movie");
+const REC_MOVIE_ELEM = $("#rec-movies");
+
 // ============ End Const Section ==============
 
 // ============= Movie Objects ==========
@@ -29,7 +34,11 @@ var relatedMovies = [];
 $("#input-grid").on("submit", function(event)
 {
   event.preventDefault();
-  console.log($("#user-type").val());
+  WRAPPER_ELEM.css("margin-top","0");
+  setTimeout(function()
+  {
+    SIDEKICK_ELEM.css("display","block");
+  }, 500);
   relatedMovies = [];
   // **note** Replace movie with value of dropdown
   TmdbSearchByName($("#user-input").val(), $("#user-type").val().toLowerCase());
@@ -47,8 +56,7 @@ console.log(TMDB_SEARCH_URL);
   }).then(async function()
   {
     searchMovie = await OmdbSearch(searchTerm,searchType);
-    console.log("Second Then!");
-    console.log(searchMovie);
+    DisplaySearch();
   });
   
 }
@@ -58,6 +66,7 @@ function TmdbRelated(videoID, searchType) {
   $.ajax({
     url: TMDB_REC_URL + searchType +"/" + videoID + "/recommendations?api_key=" + TMDB_API_KEY + "&language=en-US&page=1",
   }).then(async function (tmdbRec) {
+    console.log(tmdbRec.results);
     // get movie name
     for (var i = 0; i < NUM_OF_RECOMENDATIONS; i++) {
       if(searchType == "movie")
@@ -91,6 +100,14 @@ async function OmdbSearch(videoTitle, searchType) {
   return related;
 }
 
-function DisplaySearch() {
+function DisplaySearch() 
+{
+  SEARCH_MOVIE_ELEM.empty();
+  var newPoster = $("<img>").attr("src",searchMovie.Poster);
+  SEARCH_MOVIE_ELEM.append(newPoster);
+}
+
+function DisplayRelated()
+{
 
 }
