@@ -8,13 +8,17 @@
 
 // ========= variables section ==============
 
+// =============== Trusworthy Array ==============
+
+const TRUST_ARRAY = [];
+
 // ============= Const Section ==============
 
 const TMDB_API_KEY = "f83bba844914e64ae1cd385b42ce04e0";
 const TMDB_SEARCH_URL = "https://api.themoviedb.org/3/search/";
 const TMDB_REC_URL = "https://api.themoviedb.org/3/";
 const OMDB_URL = "http://www.omdbapi.com/?apikey=20106460&t=";
-const NUM_OF_RECOMENDATIONS = 2;
+const NUM_OF_RECOMENDATIONS = 4;
 
 const WRAPPER_ELEM = $("#wrapper");
 const SIDEKICK_ELEM = $("#sidekick");
@@ -30,7 +34,7 @@ var relatedMovies = [];
 
 // ========= End Variables Section ==========
 
-// **Note** Remove defult on enter press
+// **Note** Remove default on enter press
 $("#input-grid").on("submit", function(event)
 {
   event.preventDefault();
@@ -46,12 +50,10 @@ $("#input-grid").on("submit", function(event)
 
 // Function to  search TMDB by name, and type
 function TmdbSearchByName(searchTerm, searchType) {
-console.log(TMDB_SEARCH_URL);
   $.ajax({
     url: TMDB_SEARCH_URL + searchType + "?api_key=" + TMDB_API_KEY + "&query=" + encodeURI(searchTerm),
   }).then(function (tmdbSearch) {
     searchMovie = tmdbSearch.results[0];
-    console.log(tmdbSearch);
     TmdbRelated(searchMovie.id, searchType);
   }).then(async function()
   {
@@ -66,7 +68,6 @@ function TmdbRelated(videoID, searchType) {
   $.ajax({
     url: TMDB_REC_URL + searchType +"/" + videoID + "/recommendations?api_key=" + TMDB_API_KEY + "&language=en-US&page=1",
   }).then(async function (tmdbRec) {
-    console.log(tmdbRec.results);
     // get movie name
     for (var i = 0; i < NUM_OF_RECOMENDATIONS; i++) {
       if(searchType == "movie")
@@ -78,7 +79,7 @@ function TmdbRelated(videoID, searchType) {
         relatedMovies[i] = await OmdbSearch(tmdbRec.results[i].name, searchType);
       }
     } 
-    console.log(relatedMovies);
+    DisplayRelated();
   });
 }
 
@@ -93,7 +94,6 @@ async function OmdbSearch(videoTitle, searchType) {
   await $.ajax({
     url: OMDB_URL + encodeURI(videoTitle) + "&type=" + searchType,
   }).then(function (omdbSearch) {
-    console.log(omdbSearch);
     related = omdbSearch;
   });
 
@@ -109,5 +109,9 @@ function DisplaySearch()
 
 function DisplayRelated()
 {
-
+  REC_MOVIE_ELEM.empty();
+  for (let i = 0; i < NUM_OF_RECOMENDATIONS; i++) {
+    var newPoster = $("<img>").attr("src",relatedMovies[i].Poster);
+    REC_MOVIE_ELEM.append(newPoster);
+  }
 }
