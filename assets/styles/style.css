@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Bangers&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Acme&display=swap');
 
 body {
   /*Background image taken from reddit from user: DougS2K*/
@@ -50,7 +51,8 @@ img {
   border: 2px solid black;
 }
 
-#rec-info {
+#rec-info,
+#modal-title {
   text-align: center;
   font-family: Bangers;
 }
@@ -62,6 +64,23 @@ img {
 #current-movie,
 #rec-movies {
   text-align: center;
+}
+
+li {
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+#modal-title {
+    margin-bottom: 1rem;
+}
+
+#modal-plot {
+    margin-top: 1rem;
+}
+
+#movie-modal {
+    font-family: Acme;
 }
 
 @media screen and (max-width: 39.9375em) {
