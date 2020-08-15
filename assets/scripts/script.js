@@ -24,7 +24,16 @@ const WRAPPER_ELEM = $("#wrapper");
 const SIDEKICK_ELEM = $("#sidekick");
 const SEARCH_MOVIE_ELEM = $("#current-movie");
 const REC_MOVIE_ELEM = $("#rec-movies");
-const MOVIE_MODAL = $("#movie-modal")
+const MOVIE_MODAL_ELEM = $("#movie-modal");
+const MODAL_TITLE_ELEM = $("#modal-title");
+const MODAL_POSTER_ELEM = $("#modal-poster");
+const MODAL_DIRECTOR_ELEM = $("#modal-director");
+const MODAL_ACTORS_ELEM = $("#modal-actors");
+const MODAL_RUNTIME_ELEM = $("#modal-runtime");
+const MODAL_RATED_ELEM = $("#modal-rated");
+const MODAL_IMDB_RATING_ELEM = $("#modal-rating");
+const MODAL_PLOT_ELEM = $("#modal-plot");
+
 
 // ============ End Const Section ==============
 
