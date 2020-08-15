@@ -133,5 +133,13 @@ function DisplayRelated() {
 }
 
 function DisplayModal() {
-  console.log ($(event.target).attr('data-index'))
+  var elemData= $(event.target).attr('data-index');
+  var currentObject;
+  if (elemData== 'search') {
+  currentObject= searchMovie;
+  }
+  else {
+    currentObject= relatedMovies[elemData];
+  }
+  console.log(currentObject)
 }
