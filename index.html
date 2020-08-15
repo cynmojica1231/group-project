@@ -85,12 +85,25 @@
       </div>
     </div>
     <div class="reveal" id="movie-modal" data-reveal>
-      <p class="lead"></p>
-      <button class="close-button" data-close aria-label="Close reveal" type="button">
-        <span aria-hidden="true">&times;</span>
-      </button>
+      <div class="grid-container">
+          <div class="grid-x">
+            <div id="modal-title" class="cell"></div>
+          </div>
+          <div class="grid-x grid-margin-x">
+            <img id="modal-poster" src="" class="small-6 cell"></img>
+            <ul id="modal-list" class="small-6 cell" id="movie-info">
+                <li id="modal-director"></li>
+                <li id="modal-actors"></li>
+                <li id="modal-runtime"></li>
+                <li id="modal-rated"></li>
+                <li id="modal-rating"></li>
+            </ul>
+          </div>
+          <div class="grid-x">
+            <div id="modal-plot" class="cell"></div>
+          </div>
+      </div>
     </div>
-    <a data-open="movie-modal">Click me for a modal</a>
 
     <script type="text/javascript" src="assets/scripts/script.js"></script>
   </body>

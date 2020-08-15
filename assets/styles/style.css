@@ -55,6 +55,10 @@ img {
   font-family: Bangers;
 }
 
+#modal-list {
+    list-style: none;
+}
+
 #current-movie,
 #rec-movies {
   text-align: center;
