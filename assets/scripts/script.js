@@ -153,5 +153,15 @@ function DisplayModal() {
   else {
     currentObject = relatedMovies[elemData];
   }
-  console.log(currentObject)
+  
+  // Set Poster Image
+  // Set Director
+  // Set Actors
+  // Title
+    // Set year in title
+  // Set Rating
+  // Set IMDB rating
+  // Set Plot
+
+
 }
