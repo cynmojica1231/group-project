@@ -3,7 +3,7 @@
 
 body {
   /*Background image taken from reddit from user: DougS2K*/
-  background-image: url("https://i.redd.it/4fxxbm4opjd31.jpg");
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("https://i.redd.it/4fxxbm4opjd31.jpg");
   background-size: cover no-repeat;
   overflow-x: hidden;
 }
