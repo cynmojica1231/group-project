@@ -24,6 +24,7 @@ const WRAPPER_ELEM = $("#wrapper");
 const SIDEKICK_ELEM = $("#sidekick");
 const SEARCH_MOVIE_ELEM = $("#current-movie");
 const REC_MOVIE_ELEM = $("#rec-movies");
+const MOVIE_MODAL = $("#movie-modal")
 
 // ============ End Const Section ==============
 
