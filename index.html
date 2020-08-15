@@ -1,67 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Super Similar</title>
 
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+      crossorigin="anonymous"
+    />
     <!-- Foundation CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css" integrity="sha256-ogmFxjqiTMnZhxCqVmcqTvjfe1Y/ec4WaRj/aQPvn+I=" crossorigin="anonymous">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css"
+      integrity="sha256-ogmFxjqiTMnZhxCqVmcqTvjfe1Y/ec4WaRj/aQPvn+I="
+      crossorigin="anonymous"
+    />
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="assets/styles/style.css">
-    <!-- jQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    
-</head>
-<body>
+    <link rel="stylesheet" href="assets/styles/style.css" />
+    <!-- jQuery -->  
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/js/foundation.min.js" integrity="sha256-pRF3zifJRA9jXGv++b06qwtSqX1byFQOLjqa2PTEb2o=" crossorigin="anonymous"></script>
+  </head>
+  <body>
     <div id="wrapper">
-        <div id="hero">
-            
-            <header class="grid-container">
-                <div class="grid-x">
-                    <h1 class="cell" id="title">
-                        Super Similar
-                    </h1>
-                </div>
-            </header>
-            
-            <main class="grid-container">
-                <form class="grid-x grid-margin-x" id="input-grid">
-                    <!-- Movie/Series and Title -->
-                    <select id="user-type" class="cell medium-2 medium-offset-3 form-input">
-                        <option>Movie</option>
-                        <option>TV</option>
-                    </select>
-                    <div class="cell medium-4">
-                        <input id="user-input" class="form-input" type="text" size="">
-                    </div>
-                    <!-- Search button -->
-                    <div class="cell small-12 medium-offset-3">
-                        <div class="grid-x grid-margin-x">
-                            <button type="submit" class="button primary cell small-6 medium-2" id="search-button">
-                                Search
-                            </button>
-                            <button type="button" class="button alert cell small-6 medium-4" id="trust-button">
-                                I'm Feeling Trustworthy
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </main>
-        </div>
-        <div id="sidekick">
-            <summary class="grid-container">
-                <h1 id="rec-info">Click a movie poster to see more details about the movie</h1>
-                <div class="grid-x grid-margin-x">
-                    <div id="current-movie" class="cell medium-3"></div>
-                    <div id="rec-movies" class="cell medium-9"></div>
-                </div>
-            </summary>
-        </div>
+      <div id="hero">
+        <header class="grid-container">
+          <div class="grid-x">
+            <h1 class="cell" id="title">
+              Super Similar
+            </h1>
+          </div>
+        </header>
+
+        <main class="grid-container">
+          <form class="grid-x grid-margin-x" id="input-grid">
+            <!-- Movie/Series and Title -->
+            <select
+              id="user-type"
+              class="cell medium-2 medium-offset-3 form-input"
+            >
+              <option>Movie</option>
+              <option>TV</option>
+            </select>
+            <div class="cell medium-4">
+              <input id="user-input" class="form-input" type="text" size="" />
+            </div>
+            <!-- Search button -->
+            <div class="cell small-12 medium-offset-3">
+              <div class="grid-x grid-margin-x">
+                <button
+                  type="submit"
+                  class="button primary cell small-6 medium-2"
+                  id="search-button"
+                >
+                  Search
+                </button>
+                <button
+                  type="button"
+                  class="button alert cell small-6 medium-4"
+                  id="trust-button"
+                >
+                  I'm Feeling Trustworthy
+                </button>
+              </div>
+            </div>
+          </form>
+        </main>
+      </div>
+      <div id="sidekick">
+        <summary class="grid-container">
+          <h1 id="rec-info">
+            Click a movie poster to see more details about the movie
+          </h1>
+          <div class="grid-x grid-margin-x">
+            <div id="current-movie" class="cell medium-3"></div>
+            <div id="rec-movies" class="cell medium-9"></div>
+          </div>
+        </summary>
+      </div>
     </div>
+    <div class="reveal" id="movie-modal" data-reveal>
+      <div class="grid-container">
+          <div class="grid-x">
+            <div id="modal-title" class="cell"></div>
+          </div>
+          <div class="grid-x grid-margin-x">
+            <img id="modal-poster" src="" class="small-6 cell"></img>
+            <ul id="modal-list" class="small-6 cell" id="movie-info">
+                <li id="modal-director"></li>
+                <li id="modal-actors"></li>
+                <li id="modal-runtime"></li>
+                <li id="modal-rated"></li>
+                <li id="modal-rating"></li>
+            </ul>
+          </div>
+          <div class="grid-x">
+            <div id="modal-plot" class="cell"></div>
+          </div>
+      </div>
+    </div>
+
     <script type="text/javascript" src="assets/scripts/script.js"></script>
-</body>
+  </body>
 </html>

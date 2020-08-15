@@ -1,74 +1,80 @@
-@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bangers&display=swap");
 
 body {
-    /*Background image taken from reddit from user: DougS2K*/
-    background-image: url("https://i.redd.it/4fxxbm4opjd31.jpg");
-    background-size: cover no-repeat;
+  /*Background image taken from reddit from user: DougS2K*/
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("https://i.redd.it/4fxxbm4opjd31.jpg");
+  background-size: cover no-repeat;
+  overflow-x: hidden;
 }
 
 #title {
-    text-align: center;
-    font-family: Lobster;
-    margin-bottom: 1.5rem;
+  text-align: center;
+  font-family: Lobster;
+  margin-bottom: 1.5rem;
 }
 
 .button {
-    border-radius: 0.5rem;
+  border-radius: 0.5rem;
 }
 
 .grid-container {
-    max-width: 80rem;
+  max-width: 80rem;
 }
 
 #wrapper {
-    margin-top: 20rem;
-    transition: 1s all ease;
+  margin-top: 20vh;
+  transition: 1s all ease;
 }
 
 #hero {
-    background-color: rgb(255,255,255,.8);
+  background-color: rgb(255, 255, 255, 0.8);
 }
 
 #sidekick {
-    margin-top: 3rem;
-    display: none;
-    transition: 1s all ease;
+  margin-top: 3rem;
+  display: none;
+  transition: 1s all ease;
 }
 
 summary {
-    background-color: rgb(255, 255, 255, 1);
-    padding-top: 1rem;
-    padding-bottom: 3rem;
+  background-color: rgb(255, 255, 255, 1);
+  padding-top: 1rem;
+  padding-bottom: 3rem;
 }
 
 img {
-    width: 200px;
-    height: 300px;
-    margin-left: 1.25rem;
-    border: 2px solid black;
+  width: 200px;
+  height: 300px;
+  margin-left: 1.25rem;
+  border: 2px solid black;
 }
 
 #rec-info {
-    text-align: center;
-    font-family: Bangers;
+  text-align: center;
+  font-family: Bangers;
 }
 
-#current-movie, #rec-movies {
-    text-align: center;
+#modal-list {
+    list-style: none;
+}
+
+#current-movie,
+#rec-movies {
+  text-align: center;
 }
 
 @media screen and (max-width: 39.9375em) {
-    #input-grid {
-        margin-left: 5rem;
-        margin-right: 5rem;
-    }
+  #input-grid {
+    margin-left: 5rem;
+    margin-right: 5rem;
+  }
 
-    .button {
-        font-size: 0.5rem;
-    }
-    
-    .wrapper {
-        margin-top: 10rem;
-    }
+  .button {
+    font-size: 0.5rem;
+  }
+
+  .wrapper {
+    margin-top: 10rem;
+  }
 }

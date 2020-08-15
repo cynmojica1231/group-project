@@ -7,7 +7,7 @@
 // http://www.omdbapi.com/?apikey=20106460&t=the+princess+bride
 
 // ========= variables section ==============
-
+$(document).foundation();
 // =============== Trusworthy Array ==============
 
 const TRUST_ARRAY = [];
@@ -24,6 +24,16 @@ const WRAPPER_ELEM = $("#wrapper");
 const SIDEKICK_ELEM = $("#sidekick");
 const SEARCH_MOVIE_ELEM = $("#current-movie");
 const REC_MOVIE_ELEM = $("#rec-movies");
+const MOVIE_MODAL_ELEM = $("#movie-modal");
+const MODAL_TITLE_ELEM = $("#modal-title");
+const MODAL_POSTER_ELEM = $("#modal-poster");
+const MODAL_DIRECTOR_ELEM = $("#modal-director");
+const MODAL_ACTORS_ELEM = $("#modal-actors");
+const MODAL_RUNTIME_ELEM = $("#modal-runtime");
+const MODAL_RATED_ELEM = $("#modal-rated");
+const MODAL_IMDB_RATING_ELEM = $("#modal-rating");
+const MODAL_PLOT_ELEM = $("#modal-plot");
+
 
 // ============ End Const Section ==============
 
@@ -31,17 +41,14 @@ const REC_MOVIE_ELEM = $("#rec-movies");
 var searchMovie = {};
 var relatedMovies = [];
 
-
 // ========= End Variables Section ==========
 
 // **Note** Remove default on enter press
-$("#input-grid").on("submit", function(event)
-{
+$("#input-grid").on("submit", function (event) {
   event.preventDefault();
-  WRAPPER_ELEM.css("margin-top","0");
-  setTimeout(function()
-  {
-    SIDEKICK_ELEM.css("display","block");
+  WRAPPER_ELEM.css("margin-top", "0");
+  setTimeout(function () {
+    SIDEKICK_ELEM.css("display", "block");
   }, 500);
   relatedMovies = [];
   // **note** Replace movie with value of dropdown
@@ -51,43 +58,58 @@ $("#input-grid").on("submit", function(event)
 // Function to  search TMDB by name, and type
 function TmdbSearchByName(searchTerm, searchType) {
   $.ajax({
-    url: TMDB_SEARCH_URL + searchType + "?api_key=" + TMDB_API_KEY + "&query=" + encodeURI(searchTerm),
-  }).then(function (tmdbSearch) {
-    searchMovie = tmdbSearch.results[0];
-    TmdbRelated(searchMovie.id, searchType);
-  }).then(async function()
-  {
-    searchMovie = await OmdbSearch(searchTerm,searchType);
-    DisplaySearch();
-  });
-  
+    url:
+      TMDB_SEARCH_URL +
+      searchType +
+      "?api_key=" +
+      TMDB_API_KEY +
+      "&query=" +
+      encodeURI(searchTerm),
+  })
+    .then(function (tmdbSearch) {
+      searchMovie = tmdbSearch.results[0];
+      TmdbRelated(searchMovie.id, searchType);
+    })
+    .then(async function () {
+      searchMovie = await OmdbSearch(searchTerm, searchType);
+      DisplaySearch();
+    });
 }
 
 // Function To Search TMDB for related content based on id
 function TmdbRelated(videoID, searchType) {
   $.ajax({
-    url: TMDB_REC_URL + searchType +"/" + videoID + "/recommendations?api_key=" + TMDB_API_KEY + "&language=en-US&page=1",
+    url:
+      TMDB_REC_URL +
+      searchType +
+      "/" +
+      videoID +
+      "/recommendations?api_key=" +
+      TMDB_API_KEY +
+      "&language=en-US&page=1",
   }).then(async function (tmdbRec) {
     // get movie name
     for (var i = 0; i < NUM_OF_RECOMENDATIONS; i++) {
-      if(searchType == "movie")
-      {
-        relatedMovies[i] = await OmdbSearch(tmdbRec.results[i].title, searchType);
+      if (searchType == "movie") {
+        relatedMovies[i] = await OmdbSearch(
+          tmdbRec.results[i].title,
+          searchType
+        );
+      } else {
+        relatedMovies[i] = await OmdbSearch(
+          tmdbRec.results[i].name,
+          searchType
+        );
       }
-      else
-      {
-        relatedMovies[i] = await OmdbSearch(tmdbRec.results[i].name, searchType);
-      }
-    } 
+    }
     DisplayRelated();
   });
 }
 
-// Function that gathers information from OMDB, and saves that information in related movies array
+// Function that gathers information from OMDB, in returns the object
 async function OmdbSearch(videoTitle, searchType) {
   var related;
-  if(searchType == "tv")
-  {
+  if (searchType == "tv") {
     searchType = "series";
   }
 
@@ -100,18 +122,52 @@ async function OmdbSearch(videoTitle, searchType) {
   return related;
 }
 
-function DisplaySearch() 
-{
+function DisplaySearch() {
   SEARCH_MOVIE_ELEM.empty();
-  var newPoster = $("<img>").attr("src",searchMovie.Poster);
+  var newPoster = $("<img>").attr("src", searchMovie.Poster);
+  newPoster.attr ('data-index', 'search')
+  newPoster.attr('data-open', 'movie-modal');
+  newPoster.on ('click', DisplayModal);
   SEARCH_MOVIE_ELEM.append(newPoster);
+
 }
 
-function DisplayRelated()
-{
+function DisplayRelated() {
   REC_MOVIE_ELEM.empty();
   for (let i = 0; i < NUM_OF_RECOMENDATIONS; i++) {
-    var newPoster = $("<img>").attr("src",relatedMovies[i].Poster);
+    var newPoster = $("<img>").attr("src", relatedMovies[i].Poster);
+    newPoster.attr('data-index', i)
+    newPoster.attr('data-open', 'movie-modal');
+    newPoster.on('click', DisplayModal);
+    
     REC_MOVIE_ELEM.append(newPoster);
   }
+}
+
+function DisplayModal() {
+  var elemData= $(event.target).attr('data-index');
+  var currentObject;
+  if (elemData== 'search') {
+  currentObject = searchMovie;
+  }
+  else {
+    currentObject = relatedMovies[elemData];
+  }
+  
+  // Set Poster Image
+  MODAL_POSTER_ELEM.attr('src',currentObject.Poster)
+  // Set Director
+  MODAL_DIRECTOR_ELEM.text('Director: ' + currentObject.Director)
+  // Set Actors
+  MODAL_ACTORS_ELEM.text('Actors: ' + currentObject.Actors)
+  // Title
+  MODAL_TITLE_ELEM.text(currentObject.Title + ' (' + currentObject.Year + ')')
+    // Set year in title
+  // Set Rating
+  MODAL_RATED_ELEM.text('Rated: ' + currentObject.Rated)
+  // Set IMDB rating
+  MODAL_IMDB_RATING_ELEM.text('IMDB rating: ' + currentObject.imdbRating)
+  // Set Plot
+  MODAL_PLOT_ELEM.text(currentObject.Plot)
+
 }
