@@ -155,13 +155,19 @@ function DisplayModal() {
   }
   
   // Set Poster Image
+  MODAL_POSTER_ELEM.attr('src',currentObject.Poster)
   // Set Director
+  MODAL_DIRECTOR_ELEM.text('Director: ' + currentObject.Director)
   // Set Actors
+  MODAL_ACTORS_ELEM.text('Actors: ' + currentObject.Actors)
   // Title
+  MODAL_TITLE_ELEM.text(currentObject.Title + ' (' + currentObject.Year + ')')
     // Set year in title
   // Set Rating
+  MODAL_RATED_ELEM.text('Rated: ' + currentObject.Rated)
   // Set IMDB rating
+  MODAL_IMDB_RATING_ELEM.text('IMDB rating: ' + currentObject.imdbRating)
   // Set Plot
-
+  MODAL_PLOT_ELEM.text(currentObject.Plot)
 
 }
