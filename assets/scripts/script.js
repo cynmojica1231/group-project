@@ -115,13 +115,23 @@ async function OmdbSearch(videoTitle, searchType) {
 function DisplaySearch() {
   SEARCH_MOVIE_ELEM.empty();
   var newPoster = $("<img>").attr("src", searchMovie.Poster);
+  newPoster.attr ('data-index', 'search')
+    newPoster.on ('click', DisplayModal);
   SEARCH_MOVIE_ELEM.append(newPoster);
+
 }
 
 function DisplayRelated() {
   REC_MOVIE_ELEM.empty();
   for (let i = 0; i < NUM_OF_RECOMENDATIONS; i++) {
     var newPoster = $("<img>").attr("src", relatedMovies[i].Poster);
+    newPoster.attr ('data-index', i)
+    newPoster.on ('click', DisplayModal);
+    
     REC_MOVIE_ELEM.append(newPoster);
   }
+}
+
+function DisplayModal() {
+  console.log ($(event.target).attr('data-index'))
 }
