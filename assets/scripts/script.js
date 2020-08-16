@@ -10,7 +10,8 @@
 
 // =============== Trusworthy Array ==============
 
-const TRUST_ARRAY = [];
+const TRUST_MOVIE_ARRAY = [];
+const TRUST_TV_ARRAY = [];
 
 // ============= Const Section ==============
 
@@ -50,7 +51,6 @@ var relatedMovies = [];
 //  Initialize Foundations for modal display functionality
 $(document).foundation();
 
-// **Note** Remove default on enter press
 $("#input-grid").on("submit", function (event) {
   event.preventDefault();
 
@@ -69,6 +69,8 @@ $("#input-grid").on("submit", function (event) {
   setTimeout(function () {
     SIDEKICK_ELEM.css("display", "block");
   }, 100);
+
+  // Check if the search exists in cache
   if(!CheckForCache(searchValue, searchType))
   {
     relatedMovies = [];
@@ -116,7 +118,6 @@ function TmdbRelated(videoID, searchType) {
       TMDB_API_KEY +
       "&language=en-US&page=1",
   }).then(async function (tmdbRec) {
-    // get movie name
     for (var i = 0; i < NUM_OF_RECOMENDATIONS; i++) {
       if (searchType == "movie") {
         relatedMovies[i] = await OmdbSearch(
@@ -151,6 +152,7 @@ async function OmdbSearch(videoTitle, searchType) {
   return related;
 }
 
+// Displays the information about the searched movie
 function DisplaySearch() {
   SEARCH_MOVIE_ELEM.empty();
   var newPoster = $("<img>").attr("src", searchMovie.Poster);
@@ -158,9 +160,9 @@ function DisplaySearch() {
   newPoster.attr('data-open', 'movie-modal');
   newPoster.on ('click', DisplayModal);
   SEARCH_MOVIE_ELEM.append(newPoster);
-
 }
 
+// Displays the information about the related movies
 function DisplayRelated() {
   REC_MOVIE_ELEM.empty();
   for (let i = 0; i < NUM_OF_RECOMENDATIONS; i++) {
@@ -168,7 +170,6 @@ function DisplayRelated() {
     newPoster.attr('data-index', i)
     newPoster.attr('data-open', 'movie-modal');
     newPoster.on('click', DisplayModal);
-    
     REC_MOVIE_ELEM.append(newPoster);
   }
 }
@@ -191,7 +192,6 @@ function DisplayModal() {
   MODAL_ACTORS_ELEM.text('Actors: ' + currentObject.Actors)
   // Title
   MODAL_TITLE_ELEM.text(currentObject.Title + ' (' + currentObject.Year + ')')
-    // Set year in title
   // Set Rating
   MODAL_RATED_ELEM.text('Rated: ' + currentObject.Rated)
   // Set IMDB rating
@@ -201,18 +201,21 @@ function DisplayModal() {
 
 }
 
+// Saves the current objects into local storage based on search term and search type
 function CacheSearch(searchTerm, searchType)
 {
   localStorage.setItem(searchTerm + "|Search|" + searchType.toLowerCase(), JSON.stringify(searchMovie));
   localStorage.setItem(searchTerm + "|Related|" + searchType.toLowerCase(), JSON.stringify(relatedMovies));
 }
 
+// Sets the objects from local storage based on search term and search type
 function LoadCache(searchTerm, searchType)
 {
   searchMovie = JSON.parse(localStorage.getItem(searchTerm + "|Search|" + searchType.toLowerCase()));
   relatedMovies = JSON.parse(localStorage.getItem(searchTerm + "|Related|" + searchType.toLowerCase()));
 }
 
+// Call this function before trying to load the cache, It will return true or false if the search exists
 function CheckForCache(searchTerm, searchType)
 {
   if(JSON.parse(localStorage.getItem(searchTerm + "|Search|" + searchType.toLowerCase()) === null))
