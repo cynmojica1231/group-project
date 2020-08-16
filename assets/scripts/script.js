@@ -54,18 +54,33 @@ $(document).foundation();
 $("#input-grid").on("submit", function (event) {
   event.preventDefault();
 
+  // Setting up values in their correct format
   var searchValue = SEARCH_ELEM.val().trim().toLowerCase();
-
+  var searchType = SEARCH_TYPE_ELEM.val().toLowerCase();
+  
+  // If user has nothing in search bar we want to do nothing
   if(searchValue == "")
   {
     return;
   }
+
+  // Start animating the search div to top of screen
   WRAPPER_ELEM.css("margin-top", "0");
   setTimeout(function () {
     SIDEKICK_ELEM.css("display", "block");
-  }, 500);
-  relatedMovies = [];
-  TmdbSearchByName(searchValue, SEARCH_TYPE_ELEM.val().toLowerCase());
+  }, 100);
+  if(!CheckForCache(searchValue, searchType))
+  {
+    relatedMovies = [];
+    TmdbSearchByName(searchValue, searchType);
+  }
+  else
+  {
+    LoadCache(searchValue, searchType);
+    DisplaySearch();
+    DisplayRelated();
+  }
+
 });
 
 // Function to  search TMDB by name, and type
@@ -116,6 +131,7 @@ function TmdbRelated(videoID, searchType) {
       }
     }
     DisplayRelated();
+    CacheSearch(SEARCH_ELEM.val().trim().toLowerCase(), searchType);
   });
 }
 
@@ -183,4 +199,24 @@ function DisplayModal() {
   // Set Plot
   MODAL_PLOT_ELEM.text(currentObject.Plot)
 
+}
+
+function CacheSearch(searchTerm, searchType)
+{
+  localStorage.setItem(searchTerm + "|Search|" + searchType.toLowerCase(), JSON.stringify(searchMovie));
+  localStorage.setItem(searchTerm + "|Related|" + searchType.toLowerCase(), JSON.stringify(relatedMovies));
+}
+
+function LoadCache(searchTerm, searchType)
+{
+  searchMovie = JSON.parse(localStorage.getItem(searchTerm + "|Search|" + searchType.toLowerCase()));
+  relatedMovies = JSON.parse(localStorage.getItem(searchTerm + "|Related|" + searchType.toLowerCase()));
+}
+
+function CheckForCache(searchTerm, searchType)
+{
+  if(JSON.parse(localStorage.getItem(searchTerm + "|Search|" + searchType.toLowerCase()) === null))
+  return false;
+
+  return true;
 }
