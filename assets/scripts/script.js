@@ -7,7 +7,7 @@
 // http://www.omdbapi.com/?apikey=20106460&t=the+princess+bride
 
 // ========= variables section ==============
-$(document).foundation();
+
 // =============== Trusworthy Array ==============
 
 const TRUST_ARRAY = [];
@@ -20,10 +20,15 @@ const TMDB_REC_URL = "https://api.themoviedb.org/3/";
 const OMDB_URL = "https://www.omdbapi.com/?apikey=20106460&t=";
 const NUM_OF_RECOMENDATIONS = 4;
 
+// Main HTML Element references
 const WRAPPER_ELEM = $("#wrapper");
 const SIDEKICK_ELEM = $("#sidekick");
 const SEARCH_MOVIE_ELEM = $("#current-movie");
 const REC_MOVIE_ELEM = $("#rec-movies");
+const SEARCH_ELEM = $("#user-input");
+const SEARCH_TYPE_ELEM = $("#user-type");
+
+// Modal Element References
 const MOVIE_MODAL_ELEM = $("#movie-modal");
 const MODAL_TITLE_ELEM = $("#modal-title");
 const MODAL_POSTER_ELEM = $("#modal-poster");
@@ -34,7 +39,6 @@ const MODAL_RATED_ELEM = $("#modal-rated");
 const MODAL_IMDB_RATING_ELEM = $("#modal-rating");
 const MODAL_PLOT_ELEM = $("#modal-plot");
 
-
 // ============ End Const Section ==============
 
 // ============= Movie Objects ==========
@@ -43,16 +47,25 @@ var relatedMovies = [];
 
 // ========= End Variables Section ==========
 
+//  Initialize Foundations for modal display functionality
+$(document).foundation();
+
 // **Note** Remove default on enter press
 $("#input-grid").on("submit", function (event) {
   event.preventDefault();
+
+  var searchValue = SEARCH_ELEM.val().trim().toLowerCase();
+
+  if(searchValue == "")
+  {
+    return;
+  }
   WRAPPER_ELEM.css("margin-top", "0");
   setTimeout(function () {
     SIDEKICK_ELEM.css("display", "block");
   }, 500);
   relatedMovies = [];
-  // **note** Replace movie with value of dropdown
-  TmdbSearchByName($("#user-input").val(), $("#user-type").val().toLowerCase());
+  TmdbSearchByName(searchValue, SEARCH_TYPE_ELEM.val().toLowerCase());
 });
 
 // Function to  search TMDB by name, and type
