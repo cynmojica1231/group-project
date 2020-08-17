@@ -155,7 +155,7 @@ async function OmdbSearch(videoTitle, searchType) {
 // Displays the information about the searched movie
 function DisplaySearch() {
   SEARCH_MOVIE_ELEM.empty();
-  var newPoster = $("<img>").attr({'src': searchMovie.Poster, 'data-index': 'search', 'data-open': 'movie-modal', 'alt': 'Not Available'});
+  var newPoster = $("<img>").attr({'src': searchMovie.Poster, 'data-index': 'search', 'data-open': 'movie-modal', 'alt': 'Not Available', 'class': 'front-posters'});
   newPoster.css('margin-bottom', '8px');
   newPoster.on ('click', DisplayModal);
   SEARCH_MOVIE_ELEM.append(newPoster);
@@ -165,7 +165,7 @@ function DisplaySearch() {
 function DisplayRelated() {
   REC_MOVIE_ELEM.empty();
   for (let i = 0; i < NUM_OF_RECOMENDATIONS; i++) {
-    var newPoster = $("<img>").attr({'src': relatedMovies[i].Poster, 'data-index': i, 'data-open': 'movie-modal', 'alt': 'Not Available'});
+    var newPoster = $("<img>").attr({'src': relatedMovies[i].Poster, 'data-index': i, 'data-open': 'movie-modal', 'alt': 'Not Available', 'class': 'front-posters'});
     newPoster.css('margin-bottom', '8px');
     newPoster.on('click', DisplayModal);
     REC_MOVIE_ELEM.append(newPoster);
@@ -183,7 +183,8 @@ function DisplayModal() {
   }
   
   // Set Poster Image
-  MODAL_POSTER_ELEM.attr('src',currentObject.Poster)
+  MODAL_POSTER_ELEM.attr({'src': currentObject.Poster, 'alt': 'Not Available'})
+  MODAL_POSTER_ELEM.css({'display': 'block'})
   // Set Director
   MODAL_DIRECTOR_ELEM.text('Director: ' + currentObject.Director)
   // Set Actors
