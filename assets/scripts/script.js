@@ -155,10 +155,8 @@ async function OmdbSearch(videoTitle, searchType) {
 // Displays the information about the searched movie
 function DisplaySearch() {
   SEARCH_MOVIE_ELEM.empty();
-  var newPoster = $("<img>").attr("src", searchMovie.Poster);
-  newPoster.attr ('data-index', 'search')
-  newPoster.attr('data-open', 'movie-modal');
-  newPoster.attr('alt', 'Not available');
+  var newPoster = $("<img>").attr({'src': searchMovie.Poster, 'data-index': 'search', 'data-open': 'movie-modal', 'alt': 'Not Available'});
+  newPoster.css('margin-bottom', '8px');
   newPoster.on ('click', DisplayModal);
   SEARCH_MOVIE_ELEM.append(newPoster);
 }
@@ -167,10 +165,8 @@ function DisplaySearch() {
 function DisplayRelated() {
   REC_MOVIE_ELEM.empty();
   for (let i = 0; i < NUM_OF_RECOMENDATIONS; i++) {
-    var newPoster = $("<img>").attr("src", relatedMovies[i].Poster);
-    newPoster.attr('data-index', i)
-    newPoster.attr('data-open', 'movie-modal');
-    newPoster.attr('alt', 'Not available');
+    var newPoster = $("<img>").attr({'src': relatedMovies[i].Poster, 'data-index': i, 'data-open': 'movie-modal', 'alt': 'Not Available'});
+    newPoster.css('margin-bottom', '8px');
     newPoster.on('click', DisplayModal);
     REC_MOVIE_ELEM.append(newPoster);
   }
@@ -230,16 +226,14 @@ $("#trust-button").on("click", function()
 {
   var rng;
   var currentArray;
-  var currentType;
-  if(SEARCH_TYPE_ELEM.val().toLowerCase() === "movie")
+  var currentType = SEARCH_TYPE_ELEM.val().toLowerCase();
+  if( currentType === "movie")
   {
     currentArray = TRUST_MOVIE_ARRAY;
-    currentType = "movie";
   }
   else
   {
     currentArray = TRUST_TV_ARRAY;
-    currentType = "tv";
   }
 
   rng = Math.floor( Math.random()* currentArray.length) + 1;
@@ -261,67 +255,33 @@ $("#trust-button").on("click", function()
       "&language=en-US",
   }).then(async function (tmdbSearch) 
     {
-      console.log(tmdbSearch);
+
       if(tmdbSearch.original_title)
       {
         SEARCH_ELEM.val(tmdbSearch.original_title);
-        searchMovie =  await OmdbSearch(tmdbSearch.original_title, currentType);
       }
       else
       {
         SEARCH_ELEM.val(tmdbSearch.original_name);
-        searchMovie =  await OmdbSearch(tmdbSearch.original_name, currentType);
       }
-      DisplaySearch();
+
+      // Check if we already have this search cached, if we do, pull up the cache and display it
+      if(!CheckForCache(SEARCH_ELEM.val().toLowerCase(), currentType))
+      {
+        relatedMovies = [];
+        searchMovie =  await OmdbSearch(SEARCH_ELEM.val(), currentType);
+        DisplaySearch();
+        TmdbRelated(currentArray[rng], currentType);
+      }
+      else
+      {
+        LoadCache(SEARCH_ELEM.val().toLowerCase(), currentType);
+        DisplaySearch();
+        DisplayRelated();
+      }
+      
+      
     });
-  TmdbRelated(currentArray[rng], currentType);
+  
 
 });
-
-function GetValidSearch(index, searchType) {
-  console.log("https://api.themoviedb.org/3/" +
-  searchType +
-  "/" +
-  index +
-  "?api_key=" +
-  TMDB_API_KEY +
-  "&language=en-US");
-  $.ajax({
-    url:
-    "https://api.themoviedb.org/3/" +
-      searchType +
-      "/" +
-      index +
-      "?api_key=" +
-      TMDB_API_KEY +
-      "&language=en-US",
-  })
-    .fail(function (){
-      return;
-    })
-    .then(function(tmdbSearch) {
-
-      if(tmdbSearch.id === null)
-      {
-        console.log("No id");
-        return;
-      }
-
-      if(tmdbSearch.languages[0] != "en")
-      {
-        console.log("Not english");
-        return;
-      }
-
-      if(parseInt( tmdbSearch.popularity) <= 20)
-      {
-        console.log("low pop");
-        return;
-      }
-
-      TRUST_MOVIE_ARRAY.push(index);
-    })
-
-    
-    
-  }
