@@ -10,8 +10,8 @@
 
 // =============== Trusworthy Array ==============
 
-const TRUST_MOVIE_ARRAY = [];
-const TRUST_TV_ARRAY = [];
+var TRUST_MOVIE_ARRAY = [ 11, 12, 13, 18, 22, 58, 62, 65, 73, 77, 78, 85, 87, 95, 98, 101, 103, 105, 106, 115, 118, 120, 121, 122, 155, 185, 189, 197, 217, 218, 238, 254, 268, 272, 275, 277, 278, 280, 285, 311, 348, 350, 377, 408, 411, 425, 489, 500, 521, 585, 578, 601, 597, 604, 608, 564, 559, 550, 602, 607, 557, 603, 620, 640, 646, 621, 671, 673, 675, 680, 672, 674, 679, 694, 747, 752, 755, 767, 782, 786, 812, 808, 813, 809, 807, 862, 926, 955, 948, 954, 949, 1368, 1635, 1648, 1637, 1726, 1893];
+var TRUST_TV_ARRAY = [];
 
 // ============= Const Section ==============
 
@@ -108,6 +108,7 @@ function TmdbSearchByName(searchTerm, searchType) {
 
 // Function To Search TMDB for related content based on id
 function TmdbRelated(videoID, searchType) {
+  console.log(videoID);
   $.ajax({
     url:
       TMDB_REC_URL +
@@ -223,3 +224,68 @@ function CheckForCache(searchTerm, searchType)
 
   return true;
 }
+
+function StoreGoodID(id, searchType)
+{
+
+}
+
+$("#trust-button").on("click", function()
+{
+  TRUST_MOVIE_ARRAY = [];
+  for(var i=0; i< 2000; i++)
+  {
+    GetValidSearch(i,"tv");
+  }
+
+  console.log(TRUST_MOVIE_ARRAY);
+
+});
+
+function GetValidSearch(index, searchType) {
+  console.log("https://api.themoviedb.org/3/" +
+  searchType +
+  "/" +
+  index +
+  "?api_key=" +
+  TMDB_API_KEY +
+  "&language=en-US");
+  $.ajax({
+    url:
+    "https://api.themoviedb.org/3/" +
+      searchType +
+      "/" +
+      index +
+      "?api_key=" +
+      TMDB_API_KEY +
+      "&language=en-US",
+  })
+    .fail(function (){
+      return;
+    })
+    .then(function(tmdbSearch) {
+
+      if(tmdbSearch.id === null)
+      {
+        console.log("No id");
+        return;
+      }
+
+      if(tmdbSearch.spoken_languages[0].iso_639_1 != "en")
+      {
+        console.log("Not english");
+        return;
+      }
+
+      if(parseInt( tmdbSearch.popularity) <= 20)
+      {
+        console.log("low pop");
+        return;
+      }
+
+      TRUST_MOVIE_ARRAY.push(index);
+    })
+
+    
+    
+  }
