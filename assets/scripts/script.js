@@ -51,6 +51,21 @@ var relatedMovies = [];
 //  Initialize Foundations for modal display functionality
 $(document).foundation();
 
+// Fix for CSS such that the white background stays across the screen if the window is resized or a phone is tilted sideways
+$(document).ready(() => {
+  $("html").addClass("zf-has-scroll is-reveal-open")
+  setTimeout(() => {
+    $("html").removeClass("zf-has-scroll is-reveal-open")
+  }, 250)
+
+  window.addEventListener('resize', () => {
+    $("html").addClass("zf-has-scroll is-reveal-open")
+    setTimeout(() => {
+      $("html").removeClass("zf-has-scroll is-reveal-open")
+    }, 250)
+  });
+})
+
 $("#input-grid").on("submit", function (event) {
   event.preventDefault();
 
