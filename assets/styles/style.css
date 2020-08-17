@@ -83,6 +83,39 @@ li {
     font-family: Acme;
 }
 
+@media screen and (max-width: 1250px) {
+  img {
+    width: 150px;
+    height: 225px;
+  }
+
+  #rec-info {
+    font-size: 2rem;
+  }
+}
+
+@media screen and (max-width: 980px) {
+  img {
+    width: 100px;
+    height: 150px;
+  }
+
+  #rec-info {
+    font-size: 1.5rem;
+  }
+}
+
+@media screen and (max-width: 705px) {
+  img {
+    width: 50px;
+    height: 75px;
+  }
+
+  #rec-info {
+    font-size: 1rem;
+  }
+}
+
 @media screen and (max-width: 39.9375em) {
   #input-grid {
     margin-left: 5rem;
