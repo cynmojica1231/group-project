@@ -230,16 +230,14 @@ $("#trust-button").on("click", function()
 {
   var rng;
   var currentArray;
-  var currentType;
-  if(SEARCH_TYPE_ELEM.val().toLowerCase() === "movie")
+  var currentType = SEARCH_TYPE_ELEM.val().toLowerCase();
+  if( currentType === "movie")
   {
     currentArray = TRUST_MOVIE_ARRAY;
-    currentType = "movie";
   }
   else
   {
     currentArray = TRUST_TV_ARRAY;
-    currentType = "tv";
   }
 
   rng = Math.floor( Math.random()* currentArray.length) + 1;
@@ -261,67 +259,33 @@ $("#trust-button").on("click", function()
       "&language=en-US",
   }).then(async function (tmdbSearch) 
     {
-      console.log(tmdbSearch);
+
       if(tmdbSearch.original_title)
       {
         SEARCH_ELEM.val(tmdbSearch.original_title);
-        searchMovie =  await OmdbSearch(tmdbSearch.original_title, currentType);
       }
       else
       {
         SEARCH_ELEM.val(tmdbSearch.original_name);
-        searchMovie =  await OmdbSearch(tmdbSearch.original_name, currentType);
       }
-      DisplaySearch();
+
+      // Check if we already have this search cached, if we do, pull up the cache and display it
+      if(!CheckForCache(SEARCH_ELEM.val().toLowerCase(), currentType))
+      {
+        relatedMovies = [];
+        searchMovie =  await OmdbSearch(SEARCH_ELEM.val(), currentType);
+        DisplaySearch();
+        TmdbRelated(currentArray[rng], currentType);
+      }
+      else
+      {
+        LoadCache(SEARCH_ELEM.val().toLowerCase(), currentType);
+        DisplaySearch();
+        DisplayRelated();
+      }
+      
+      
     });
-  TmdbRelated(currentArray[rng], currentType);
+  
 
 });
-
-function GetValidSearch(index, searchType) {
-  console.log("https://api.themoviedb.org/3/" +
-  searchType +
-  "/" +
-  index +
-  "?api_key=" +
-  TMDB_API_KEY +
-  "&language=en-US");
-  $.ajax({
-    url:
-    "https://api.themoviedb.org/3/" +
-      searchType +
-      "/" +
-      index +
-      "?api_key=" +
-      TMDB_API_KEY +
-      "&language=en-US",
-  })
-    .fail(function (){
-      return;
-    })
-    .then(function(tmdbSearch) {
-
-      if(tmdbSearch.id === null)
-      {
-        console.log("No id");
-        return;
-      }
-
-      if(tmdbSearch.languages[0] != "en")
-      {
-        console.log("Not english");
-        return;
-      }
-
-      if(parseInt( tmdbSearch.popularity) <= 20)
-      {
-        console.log("low pop");
-        return;
-      }
-
-      TRUST_MOVIE_ARRAY.push(index);
-    })
-
-    
-    
-  }
