@@ -158,6 +158,7 @@ function DisplaySearch() {
   var newPoster = $("<img>").attr("src", searchMovie.Poster);
   newPoster.attr ('data-index', 'search')
   newPoster.attr('data-open', 'movie-modal');
+  newPoster.attr('alt', 'Not available');
   newPoster.on ('click', DisplayModal);
   SEARCH_MOVIE_ELEM.append(newPoster);
 }
@@ -169,6 +170,7 @@ function DisplayRelated() {
     var newPoster = $("<img>").attr("src", relatedMovies[i].Poster);
     newPoster.attr('data-index', i)
     newPoster.attr('data-open', 'movie-modal');
+    newPoster.attr('alt', 'Not available');
     newPoster.on('click', DisplayModal);
     REC_MOVIE_ELEM.append(newPoster);
   }
@@ -226,10 +228,10 @@ function CheckForCache(searchTerm, searchType)
 
 $("#trust-button").on("click", function()
 {
-  var rng = Math.floor( Math.random()*2) + 1;
+  var rng;
   var currentArray;
   var currentType;
-  if(rng == 1)
+  if(SEARCH_TYPE_ELEM.val().toLowerCase() === "movie")
   {
     currentArray = TRUST_MOVIE_ARRAY;
     currentType = "movie";
@@ -262,19 +264,16 @@ $("#trust-button").on("click", function()
       console.log(tmdbSearch);
       if(tmdbSearch.original_title)
       {
-        console.log("TV");
+        SEARCH_ELEM.val(tmdbSearch.original_title);
         searchMovie =  await OmdbSearch(tmdbSearch.original_title, currentType);
       }
       else
       {
-        console.log("Movie");
+        SEARCH_ELEM.val(tmdbSearch.original_name);
         searchMovie =  await OmdbSearch(tmdbSearch.original_name, currentType);
       }
       DisplaySearch();
     });
-    
-
-  console.log(currentArray[rng]);
   TmdbRelated(currentArray[rng], currentType);
 
 });
