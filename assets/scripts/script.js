@@ -196,11 +196,11 @@ function DisplayLoading()
   console.log("Displaying loading images");
   SEARCH_MOVIE_ELEM.empty();
   REC_MOVIE_ELEM.empty();
-  var searchPoster = $("<img>").attr("src", "./assets/images/loading_poster.gif");
+  var searchPoster = $("<img>").attr({'src': "./assets/images/loading_poster.gif", 'data-index': 'search', 'data-open': 'movie-modal', 'alt': 'Not Available', 'class': 'search-poster front-posters'});
   SEARCH_MOVIE_ELEM.append(searchPoster);
   for(var i=0;i<NUM_OF_RECOMENDATIONS;i++)
   {
-    var newPoster = $("<img>").attr("src", "./assets/images/loading_poster.gif");
+    var newPoster = $("<img>").attr({'src': "./assets/images/loading_poster.gif", 'data-index': i, 'data-open': 'movie-modal', 'alt': 'Not Available', 'class': 'rec-poster front-posters'});
     REC_MOVIE_ELEM.append(newPoster);
   }
 }
