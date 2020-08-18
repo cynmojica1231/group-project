@@ -73,6 +73,7 @@ $("#input-grid").on("submit", function (event) {
   // Check if the search exists in cache
   if(!CheckForCache(searchValue, searchType))
   {
+    DisplayLoading();
     relatedMovies = [];
     TmdbSearchByName(searchValue, searchType);
   }
@@ -176,6 +177,20 @@ function DisplayRelated() {
   }
 }
 
+function DisplayLoading()
+{
+  console.log("Displaying loading images");
+  SEARCH_MOVIE_ELEM.empty();
+  REC_MOVIE_ELEM.empty();
+  var searchPoster = $("<img>").attr("src", "./assets/images/loading_poster.gif");
+  SEARCH_MOVIE_ELEM.append(searchPoster);
+  for(var i=0;i<NUM_OF_RECOMENDATIONS;i++)
+  {
+    var newPoster = $("<img>").attr("src", "./assets/images/loading_poster.gif");
+    REC_MOVIE_ELEM.append(newPoster);
+  }
+}
+
 function DisplayModal() {
   var elemData= $(event.target).attr('data-index');
   var currentObject;
@@ -228,6 +243,7 @@ function CheckForCache(searchTerm, searchType)
 
 $("#trust-button").on("click", function()
 {
+  DisplayLoading();
   var rng;
   var currentArray;
   var currentType = SEARCH_TYPE_ELEM.val().toLowerCase();
