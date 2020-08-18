@@ -53,16 +53,16 @@ $(document).foundation();
 
 // Fix for CSS such that the white background stays across the screen if the window is resized or a phone is tilted sideways
 $(document).ready(() => {
-  $("html").addClass("zf-has-scroll is-reveal-open")
+  $("html").addClass("zf-has-scroll is-reveal-open");
   setTimeout(() => {
-    $("html").removeClass("zf-has-scroll is-reveal-open")
-  }, 250)
+    $("html").removeClass("zf-has-scroll is-reveal-open");
+  }, 250);
 
   window.addEventListener('resize', () => {
-    $("html").addClass("zf-has-scroll is-reveal-open")
+    $("html").addClass("zf-has-scroll is-reveal-open");
     setTimeout(() => {
-      $("html").removeClass("zf-has-scroll is-reveal-open")
-    }, 250)
+      $("html").removeClass("zf-has-scroll is-reveal-open");
+    }, 250);
   });
 })
 
@@ -88,6 +88,7 @@ $("#input-grid").on("submit", function (event) {
   // Check if the search exists in cache
   if(!CheckForCache(searchValue, searchType))
   {
+    DisplayLoading();
     relatedMovies = [];
     TmdbSearchByName(searchValue, searchType);
   }
@@ -170,7 +171,7 @@ async function OmdbSearch(videoTitle, searchType) {
 // Displays the information about the searched movie
 function DisplaySearch() {
   SEARCH_MOVIE_ELEM.empty();
-  var newPoster = $("<img>").attr({'src': searchMovie.Poster, 'data-index': 'search', 'data-open': 'movie-modal', 'alt': 'Not Available', 'class': 'front-posters'});
+  var newPoster = $("<img>").attr({'src': searchMovie.Poster, 'data-index': 'search', 'data-open': 'movie-modal', 'alt': 'Not Available', 'class': 'search-poster front-posters'});
   newPoster.css('margin-bottom', '8px');
   newPoster.on ('click', DisplayModal);
   SEARCH_MOVIE_ELEM.append(newPoster);
@@ -180,9 +181,26 @@ function DisplaySearch() {
 function DisplayRelated() {
   REC_MOVIE_ELEM.empty();
   for (let i = 0; i < NUM_OF_RECOMENDATIONS; i++) {
-    var newPoster = $("<img>").attr({'src': relatedMovies[i].Poster, 'data-index': i, 'data-open': 'movie-modal', 'alt': 'Not Available', 'class': 'front-posters'});
+    var newPoster = $("<img>").attr({'src': relatedMovies[i].Poster, 'data-index': i, 'data-open': 'movie-modal', 'alt': 'Not Available', 'class': 'rec-poster front-posters'});
     newPoster.css('margin-bottom', '8px');
     newPoster.on('click', DisplayModal);
+    if (i > 1) {
+      newPoster.addClass("same-row");
+    }
+    REC_MOVIE_ELEM.append(newPoster);
+  }
+}
+
+function DisplayLoading()
+{
+  console.log("Displaying loading images");
+  SEARCH_MOVIE_ELEM.empty();
+  REC_MOVIE_ELEM.empty();
+  var searchPoster = $("<img>").attr({'src': "./assets/images/loading_poster.gif", 'data-index': 'search', 'data-open': 'movie-modal', 'alt': 'Not Available', 'class': 'search-poster front-posters'});
+  SEARCH_MOVIE_ELEM.append(searchPoster);
+  for(var i=0;i<NUM_OF_RECOMENDATIONS;i++)
+  {
+    var newPoster = $("<img>").attr({'src': "./assets/images/loading_poster.gif", 'data-index': i, 'data-open': 'movie-modal', 'alt': 'Not Available', 'class': 'rec-poster front-posters'});
     REC_MOVIE_ELEM.append(newPoster);
   }
 }
@@ -240,6 +258,7 @@ function CheckForCache(searchTerm, searchType)
 
 $("#trust-button").on("click", function()
 {
+  DisplayLoading();
   var rng;
   var currentArray;
   var currentType = SEARCH_TYPE_ELEM.val().toLowerCase();
