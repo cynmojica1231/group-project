@@ -24,8 +24,9 @@ body {
 }
 
 #wrapper {
-  margin-top: 20vh;
+  margin-top: 15vh;
   transition: 1s all ease;
+  text-align: center;
 }
 
 #hero {
@@ -44,11 +45,21 @@ summary {
   padding-bottom: 3rem;
 }
 
-img {
-  width: 200px;
-  height: 300px;
+.front-posters {
+  display: inline-block;
+  max-width: 200px;
+  max-height: 300px;
   margin-left: 1.25rem;
+  width: auto;
+  height: auto;
   border: 2px solid black;
+}
+
+#modal-poster {
+  display: block;
+  margin: auto;
+  max-width: 200px;
+  max-height: 300px;
 }
 
 #rec-info,
@@ -68,25 +79,58 @@ img {
 
 li {
     font-weight: bold;
-    margin-bottom: 1rem;
+    margin-bottom: 8px;
 }
 
 #modal-title {
-    margin-bottom: 1rem;
+    margin-bottom: 8px;
 }
 
 #modal-plot {
-    margin-top: 1rem;
+    margin-top: 8px;
 }
 
 #movie-modal {
     font-family: Acme;
 }
 
+@media screen and (max-width: 1250px) {
+  .front-posters {
+    max-width: 150px;
+    max-height: 225px;
+  }
+
+  #rec-info {
+    font-size: 2rem;
+  }
+}
+
+@media screen and (max-width: 980px) {
+  .front-posters {
+    max-width: 100px;
+    max-height: 150px;
+  }
+
+  #rec-info {
+    font-size: 1.5rem;
+  }
+}
+
+@media screen and (max-width: 705px) {
+  .rec-poster {
+    max-width: 50px;
+    max-height: 75px;
+  }
+
+  #rec-info {
+    font-size: 1rem;
+  }
+}
+
 @media screen and (max-width: 39.9375em) {
   #input-grid {
-    margin-left: 5rem;
-    margin-right: 5rem;
+    margin-left: 60px;
+    margin-right: 60px;
   }
 
   .button {
@@ -94,6 +138,23 @@ li {
   }
 
   .wrapper {
-    margin-top: 10rem;
+    margin-top: 25px;
+  }
+
+  #movie-modal {
+    text-align: center;
+  }
+  
+}
+
+@media screen and (max-width: 340px) {
+  .search-poster {
+    max-width: 50px;
+    max-height: 75px;
+  }
+
+  #input-grid {
+    margin-left: 8px;
+    margin-right: 8px;
   }
 }

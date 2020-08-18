@@ -53,20 +53,8 @@
             <!-- Search button -->
             <div class="cell small-12 medium-offset-3">
               <div class="grid-x grid-margin-x">
-                <button
-                  type="submit"
-                  class="button primary cell small-6 medium-2"
-                  id="search-button"
-                >
-                  Search
-                </button>
-                <button
-                  type="button"
-                  class="button alert cell small-6 medium-4"
-                  id="trust-button"
-                >
-                  I'm Feeling Trustworthy
-                </button>
+                <button type="submit" class="button primary cell small-6 medium-2" id="search-button">Search</button>
+                <button type="button" class="button alert cell small-6 medium-4" id="trust-button">I'm Feeling Trustworthy</button>
               </div>
             </div>
           </form>
@@ -74,12 +62,10 @@
       </div>
       <div id="sidekick">
         <summary class="grid-container">
-          <h1 id="rec-info">
-            Click a movie poster to see more details about the movie
-          </h1>
-          <div class="grid-x grid-margin-x">
-            <div id="current-movie" class="cell medium-3"></div>
-            <div id="rec-movies" class="cell medium-9"></div>
+          <h1 id="rec-info">Click a movie poster to see more details about the movie</h1>
+          <div id="movie-posters" class="grid-x grid-margin-x">
+            <div id="current-movie" class="cell small-6 medium-3"></div>
+            <div id="rec-movies" class="cell small-6 medium-9"></div>
           </div>
         </summary>
       </div>
@@ -90,8 +76,8 @@
             <h1 id="modal-title" class="cell"></h1>
           </div>
           <div class="grid-x grid-margin-x">
-            <img id="modal-poster" src="" class="small-6 cell"></img>
-            <ul id="modal-list" class="small-6 cell" id="movie-info">
+            <img id="modal-poster" src="" class="small-12 medium-6 cell"></img>
+            <ul id="modal-list" class="small-12 medium-6 cell" id="movie-info">
                 <li id="modal-director"></li>
                 <li id="modal-actors"></li>
                 <li id="modal-runtime"></li>
@@ -101,7 +87,10 @@
           </div>
           <div class="grid-x">
             <div id="modal-plot" class="cell"></div>
-          </div>
+          </div>        
+          <button class="close-button" data-close aria-label="Close reveal" type="button">
+            <span aria-hidden="true">&times;</span>
+          </button>
       </div>
     </div>
 
