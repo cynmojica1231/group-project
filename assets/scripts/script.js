@@ -219,10 +219,17 @@ function DisplayModal() {
   MODAL_POSTER_ELEM.attr({'src': currentObject.Poster, 'alt': 'Not Available'})
   MODAL_POSTER_ELEM.css({'display': 'block'})
   // Set Director
-  MODAL_DIRECTOR_ELEM.text('Director: ' + currentObject.Director)
+  var directors = currentObject.Director.split(",");
+  MODAL_DIRECTOR_ELEM.empty();
+  MODAL_DIRECTOR_ELEM.text('Director: ');
+  for(var i=0; i <directors.length;i++)
+  {
+    var newDirector = $("<a>").attr("href", "https://www.google.com/search?q=" + directors[i])
+    newDirector.text(directors[i] + " ");
+    MODAL_DIRECTOR_ELEM.append(newDirector);
+  }
   // Set Actors
   var actors = currentObject.Actors.split(",");
-  console.log(actors);
   MODAL_ACTORS_ELEM.empty();
   MODAL_ACTORS_ELEM.text("Actors: ");
   for(var i=0; i <actors.length;i++)
