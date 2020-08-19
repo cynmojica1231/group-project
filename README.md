@@ -1,6 +1,8 @@
 # Super Similar
 Super similar was designed to be your go to source for finding something to watch based on the things you know you already enjoy.  For the people who dont even know what they enjoy we also built in a feature that gives you a ideas automatically... you just have to trust it.
 
+![Main Layout](assets/images/super-similar-dropdown.png)
+
 ## Link to the deployed version
 https://ssbrear.github.io/group-project/
 
@@ -18,7 +20,7 @@ This site was designed from the ground up with mobile responsiveness in mind!  W
 ## In Depth Details
 ![Search Movies](assets/images/super-similar-taxi-driver-modal.png)
 
-### Created By
-Cynthia Mojica - https://github.com/cynmojica1231
-Sebastian Brear - https://github.com/ssbrear
-John Baxter - https://github.com/jbaxter91
+## Created By
+#### [Cynthia Mojica](https://github.com/cynmojica1231)
+#### [Sebastian Brear](https://github.com/ssbrear)
+#### [John Baxter](https://github.com/jbaxter91)
