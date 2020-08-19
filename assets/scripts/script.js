@@ -224,7 +224,7 @@ function DisplayModal() {
   MODAL_DIRECTOR_ELEM.text('Director: ');
   for(var i=0; i <directors.length;i++)
   {
-    var newDirector = $("<a>").attr("href", "https://www.google.com/search?q=" + directors[i])
+    var newDirector = $("<a>").attr("href", "https://www.google.com/search?q=" + encodeURI(directors[i].trim()))
     newDirector.text(directors[i] + " ");
     MODAL_DIRECTOR_ELEM.append(newDirector);
   }
@@ -234,7 +234,7 @@ function DisplayModal() {
   MODAL_ACTORS_ELEM.text("Actors: ");
   for(var i=0; i <actors.length;i++)
   {
-    var newActor = $("<a>").attr("href", "https://www.google.com/search?q=" + actors[i])
+    var newActor = $("<a>").attr("href", "https://www.google.com/search?q=" + encodeURI(actors[i].trim()))
     newActor.text(actors[i] + " ");
     MODAL_ACTORS_ELEM.append(newActor);
   }
