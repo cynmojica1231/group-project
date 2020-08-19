@@ -221,7 +221,16 @@ function DisplayModal() {
   // Set Director
   MODAL_DIRECTOR_ELEM.text('Director: ' + currentObject.Director)
   // Set Actors
-  MODAL_ACTORS_ELEM.text('Actors: ' + currentObject.Actors)
+  var actors = currentObject.Actors.split(",");
+  console.log(actors);
+  MODAL_ACTORS_ELEM.empty();
+  MODAL_ACTORS_ELEM.text("Actors: ");
+  for(var i=0; i <actors.length;i++)
+  {
+    var newActor = $("<a>").attr("href", "https://www.google.com/search?q=" + actors[i])
+    newActor.text(actors[i] + " ");
+    MODAL_ACTORS_ELEM.append(newActor);
+  }
   // Title
   MODAL_TITLE_ELEM.text(currentObject.Title + ' (' + currentObject.Year + ')')
   // Set Rating
